@@ -1,0 +1,42 @@
+/* ----- Custom Font Imports ----- */
+
+@font-face {
+    font-family: Dinfest;
+    src: url(../assets/fonts/Dinfest.woff2);
+}
+
+/* ----- Global CSS Variables ----- */
+
+:root {
+    --primary-color: #4d2db7;
+    --secondary-color: #ec53b0;
+    --display-font: Dinfest;
+    --paragraph-font: Poppins;
+}
+
+/* ----- Primary Layout Containers -----
+** The layout is split into 3 primary sections present on every page:
+** A header (top) section of a fixed and unchanging size.
+** A controls (bottom) section which will adjust in size according to the number
+** of buttons it contains.
+** A content (middle) section which will take up the rest of the available space
+** and will implement scrolling if its content it long to fit in the available space.
+*/
+
+#game-container {
+}
+
+.header-container {
+}
+
+.content-container {
+}
+
+.controls-container {
+}
+
+.border-box {
+}
+
+.control-button {
+}
