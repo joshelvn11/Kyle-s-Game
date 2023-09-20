@@ -1,0 +1,204 @@
+/* ----- Breakpoints ----- 
+** Mobile Devices – 320px to 480px
+** iPads and Tablets – 481px to 768px
+** Laptops and small screen – 769px to 1024px
+** Large screens and Desktops – 1025px to 1200px
+** TV and Extra Large Screens – 1201px and more
+*/
+
+/* ----- Custom Font Imports ----- */
+
+@font-face {
+    font-family: Dinfest;
+    src: url(../assets/fonts/Dinfest.woff2);
+}
+
+@font-face {
+    font-family: Poppins;
+    src: url(../assets/fonts/Poppins-Regular.woff2);
+}
+
+/* ----- Global CSS Variables ----- */
+
+:root {
+    --primary-color: #4d2db7;
+    --secondary-color: #ec53b0;
+    --display-font: Dinfest;
+    --paragraph-font: Poppins;
+}
+
+/* ----- Root Element Styles ----- */
+
+body {
+    opacity: 1;
+    /* Background parttern created using https://www.magicpattern.design/tools/css-backgrounds */
+    background-image: radial-gradient(#3a18a9 1.65px, transparent 1.65px),
+        radial-gradient(#3a18a9 1.65px, #4d2db7 1.65px);
+    background-size: 66px 66px;
+    background-position:
+        0 0,
+        33px 33px;
+    margin: 0;
+}
+
+/* ----- Utility Classes ----- */
+
+.hidden {
+    display: none !important;
+}
+
+/* ----- Primary Layout Containers -----
+** The layout is split into 3 primary sections present on every page:
+** A header (top) section of a fixed and unchanging size.
+** A controls (bottom) section which will adjust in size according to the number
+** of buttons it contains.
+** A content (middle) section which will take up the rest of the available space
+** and will implement scrolling if its content it long to fit in the available space.
+*/
+
+#game-container {
+    max-width: 94vw;
+    width: 768px;
+    max-height: 100vh;
+    height: 1080px;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.screen-container {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    max-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.header-container {
+    padding: 24px 0px 24px 0px;
+    text-align: center;
+    min-height: 0px;
+}
+
+.content-container {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-content: flex-start;
+    overflow-y: scroll;
+    overflow-x: visible;
+    /*    background-color: green;*/
+}
+
+.controls-container {
+    padding: 12px 0 36px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    /*    background-color: red;*/
+}
+
+.border-box {
+}
+
+.header-text {
+    font-family: var(--display-font);
+    color: var(--secondary-color);
+    font-size: 36px;
+    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+    margin: 0;
+    text-align: center;
+}
+
+.control-button {
+    width: 100%;
+    min-height: 60px;
+    background-color: rgba(0, 0, 0, 0);
+    padding-top: 6px;
+    border: 3px solid var(--secondary-color);
+    box-shadow: 4px 4px 0px 2px rgba(0, 0, 0, 0.25);
+    font-family: var(--display-font);
+    color: var(--secondary-color);
+    font-size: 28px;
+    text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+#screen-entry {
+    justify-content: center;
+    align-content: center;
+    gap: 36px;
+}
+
+.player-input {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    border: 3px solid var(--secondary-color);
+    box-shadow: 4px 4px 0px 2px rgba(0, 0, 0, 0.25);
+    font-size: 18px;
+    height: 36px;
+    padding: 0 6px;
+    color: var(--secondary-color);
+    font-family: var(--paragraph-font);
+    text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+.player-input:focus {
+    outline: none;
+}
+
+/* ----- Animations ----- */
+
+.button-click {
+    animation-name: button-click;
+    animation-duration: 0.4s;
+    animation-direction: alternate;
+}
+
+@keyframes button-click {
+    0% {
+        box-shadow: 4px 4px 0px 2px rgba(0, 0, 0, 0.25);
+    }
+    50% {
+        box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.25);
+        transform: translate(4px, 4px);
+    }
+    100% {
+        box-shadow: 4px 4px 0px 2px rgba(0, 0, 0, 0.25);
+    }
+}
+
+.screen-in {
+    animation-name: screen-in;
+    animation-duration: 0.7s;
+}
+
+@keyframes screen-in {
+    0% {
+        transform: translate(200%, 0%);
+    }
+    100% {
+        transform: translate(0%, 0%);
+    }
+}
+
+.screen-out {
+    animation-name: screen-out;
+    animation-duration: 0.7s;
+}
+
+@keyframes screen-out {
+    0% {
+        transform: translate(0%, 0%);
+    }
+    100% {
+        transform: translate(-200%, 0%);
+    }
+}

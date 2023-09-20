@@ -3,9 +3,123 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
 		<title>Document</title>
 	</head>
 	<body>
-		<section id="screen-preloader"></section>
+		<div id="game-container">
+			<!-- Entry Screen-->
+			<section class="screen-container" id="screen-entry">
+				<h1 class="header-text">Kyle's Game</h1>
+				<button class="control-button" id="button-fullscreen">
+					Enter
+				</button>
+			</section>
+
+			<!-- Start Screen-->
+			<section class="screen-container hidden" id="screen-start">
+				<div class="header-container">
+					<h1 class="header-text">Kyle's Game</h1>
+				</div>
+				<div class="content-container"></div>
+				<div class="controls-container">
+					<button class="control-button" id="button-new-game">
+						New Game
+					</button>
+					<button class="control-button" id="button-settings">
+						Settings
+					</button>
+					<button class="control-button" id="button-how-to">
+						How To Play
+					</button>
+				</div>
+			</section>
+
+			<!-- Team 1 Screen-->
+			<section class="screen-container hidden" id="screen-team-one">
+				<div class="header-container">
+					<h2 class="header-text">Team 1</h2>
+				</div>
+				<div class="content-container" id="team-one-container">
+					<input
+						type="text"
+						class="player-input"
+						placeholder="Player Name"
+					/>
+					<input
+						type="text"
+						class="player-input"
+						placeholder="Player Name"
+					/>
+				</div>
+				<div class="controls-container">
+					<button
+						class="control-button"
+						id="remove-player-button-team-one"
+					>
+						Remove Player
+					</button>
+					<button
+						class="control-button"
+						id="add-player-button-team-one"
+					>
+						Add Player
+					</button>
+					<button
+						class="control-button"
+						id="continue-button-team-one"
+					>
+						Continue
+					</button>
+				</div>
+			</section>
+
+			<!-- Team 2 Screen-->
+			<section class="screen-container hidden" id="screen-team-two">
+				<div class="header-container">
+					<h2 class="header-text">Team 2</h2>
+				</div>
+				<div class="content-container" id="team-two-container">
+					<input
+						type="text"
+						class="player-input"
+						placeholder="Player Name"
+					/>
+					<input
+						type="text"
+						class="player-input"
+						placeholder="Player Name"
+					/>
+				</div>
+				<div class="controls-container">
+					<button
+						class="control-button"
+						id="remove-player-button-team-two"
+					>
+						Remove Player
+					</button>
+					<button
+						class="control-button"
+						id="add-player-button-team-two"
+					>
+						Add Player
+					</button>
+					<button
+						class="control-button"
+						id="continue-button-team-two"
+					>
+						Continue
+					</button>
+				</div>
+			</section>
+		</div>
+		<audio id="sound-button-click" preload="auto">
+			<source
+				src="assets/media/audio/button-click.mp3"
+				type="audio/mpeg"
+			/>
+		</audio>
+
+		<script src="js/script.js"></script>
 	</body>
 </html>
