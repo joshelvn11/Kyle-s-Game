@@ -52,6 +52,20 @@ function buttonClickAudio() {
   soundBtnClick.play();
 }
 
+/* ---------- DATA STRUCTURES ---------- */
+
+let numTeams = 2;
+
+/* ---------- DATA STRUCTURES ---------- */
+
+let gameData = {
+  teams: [],
+  currentPlayers: [],
+  teamScores: [],
+  currentPhase: 1,
+  cards: [],
+};
+
 /* ---------- ENTER SCREEN ---------- */
 
 enterBtnEnterScrn.addEventListener(
@@ -137,6 +151,21 @@ removePlayerBtnTeamOne.addEventListener("click", function () {
 continueBtnTeamOne.addEventListener("click", function () {
   buttonAnimation(this);
   buttonClickAudio();
+
+  /* Create an array of players for Team one
+   * from the text input values and add that array
+   * onto the teams array in the game data
+   */
+  let teamOnePlayers = [];
+
+  for (let i = 0; i < teamOnePlayerElements.length; i++) {
+    teamOnePlayers.push(teamOnePlayerElements[i].value);
+  }
+
+  gameData.teams.push(teamOnePlayers);
+  console.log(gameData);
+
+  // Change to next screen
   screenTransition(screenTeamOne, screenTeamTwo);
 });
 
@@ -179,4 +208,20 @@ removePlayerBtnTeamTwo.addEventListener("click", function () {
 continueBtnTeamTwo.addEventListener("click", function () {
   buttonAnimation(this);
   buttonClickAudio();
+
+  /* Create an array of players for Team one
+   * from the text input values and add that array
+   * onto the teams array in the game data
+   */
+  let teamTwoPlayers = [];
+
+  for (let i = 0; i < teamTwoPlayerElements.length; i++) {
+    teamTwoPlayers.push(teamTwoPlayerElements[i].value);
+  }
+
+  gameData.teams.push(teamTwoPlayers);
+  console.log(gameData);
+
+  // Change to next screen
+  //screenTransition(screenTeamOne, screenTeamTwo);
 });
