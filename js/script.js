@@ -3,6 +3,7 @@ const screenEntry = document.getElementById("screen-entry");
 const screenStart = document.getElementById("screen-start");
 const screenTeamOne = document.getElementById("screen-team-one");
 const screenTeamTwo = document.getElementById("screen-team-two");
+const screenCardCreation = document.getElementById("screen-card-creation");
 
 /* Containers */
 const containerGame = document.getElementById("game-container");
@@ -130,7 +131,7 @@ addPlayerBtnTeamOne.addEventListener("click", function () {
   buttonClickAudio();
 
   const teamPlayerInput = document.createElement("input");
-  teamPlayerInput.classList.add("player-input");
+  teamPlayerInput.classList.add("input-field");
   teamPlayerInput.setAttribute("placeholder", "Player Name");
 
   contentContainerTeamOne.appendChild(teamPlayerInput);
@@ -187,7 +188,7 @@ addPlayerBtnTeamTwo.addEventListener("click", function () {
   buttonClickAudio();
 
   const teamPlayerInput = document.createElement("input");
-  teamPlayerInput.classList.add("player-input");
+  teamPlayerInput.classList.add("input-field");
   teamPlayerInput.setAttribute("placeholder", "Player Name");
 
   contentContainerTeamTwo.appendChild(teamPlayerInput);
@@ -223,5 +224,5 @@ continueBtnTeamTwo.addEventListener("click", function () {
   console.log(gameData);
 
   // Change to next screen
-  //screenTransition(screenTeamOne, screenTeamTwo);
+  screenTransition(screenTeamTwo, screenCardCreation);
 });
