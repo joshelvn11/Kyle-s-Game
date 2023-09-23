@@ -70,6 +70,25 @@ let gameData = {
   cards: [],
 };
 
+/* ---------- MESSAGE MODAL ---------- */
+
+const messageContainer = document.getElementById("message-container");
+const messageModalText = document.getElementById("message-modal-text");
+const messageModalButton = document.getElementById("message-modal-button");
+
+function displayMessage(message) {
+  messageModalText.textContent = message;
+  message.classList.toggle("hidden");
+}
+
+messageModalButton.addEventListener("click", function () {
+  buttonAnimation(this);
+  buttonClickAudio();
+  setTimeout(() => {
+    messageContainer.classList.toggle("hidden");
+  }, 500);
+});
+
 /* ---------- ENTER SCREEN ---------- */
 
 enterBtnEnterScrn.addEventListener(
