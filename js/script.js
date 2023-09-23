@@ -3,7 +3,9 @@ const screenEntry = document.getElementById("screen-entry");
 const screenStart = document.getElementById("screen-start");
 const screenTeamOne = document.getElementById("screen-team-one");
 const screenTeamTwo = document.getElementById("screen-team-two");
-const screenCardCreation = document.getElementById("screen-card-creation");
+const screenCardCreationTemplate = document.getElementById(
+  "screen-card-creation",
+);
 
 /* Containers */
 const containerGame = document.getElementById("game-container");
@@ -53,9 +55,10 @@ function buttonClickAudio() {
   soundBtnClick.play();
 }
 
-/* ---------- DATA STRUCTURES ---------- */
+/* ---------- SETTINGS ---------- */
 
 let numTeams = 2;
+let numCards = 3;
 
 /* ---------- DATA STRUCTURES ---------- */
 
@@ -221,8 +224,138 @@ continueBtnTeamTwo.addEventListener("click", function () {
   }
 
   gameData.teams.push(teamTwoPlayers);
-  console.log(gameData);
 
-  // Change to next screen
-  screenTransition(screenTeamTwo, screenCardCreation);
+  // Generate card creation screens based on players enetered
+  // and retreive the first screen to be navigated to
+  const cardCreationScreen = generateCardCreationScreens();
+
+  // Change to the next screen
+  screenTransition(screenTeamTwo, cardCreationScreen);
 });
+
+/* ---------- CARD CREATION SCREENS ---------- */
+
+function generateCardCreationScreens() {
+  // Create an array to hold all the screens as they are being created
+  let cardCreationScreensArr = [];
+
+  // Create an array of all players
+  const allPlayersArr = [...gameData.teams[0], ...gameData.teams[1]];
+  console.log(allPlayersArr);
+
+  // Loop through the array of all players and generate a card
+  // creaion screen for each one.
+  for (let i = 0; i < allPlayersArr.length; i++) {
+    // Create new card creation screen based on the template
+    const screenCardCreation = document.createElement("section");
+    screenCardCreation.setAttribute("class", "screen-container hidden");
+    screenCardCreation.setAttribute("id", `screen-card-creation-${i}`);
+
+    screenCardCreation.innerHTML = `
+          <div class="header-container">
+            <h2 class="header-text">
+              ${allPlayersArr[i]} Card's
+            </h2>
+          </div>
+          <div class="content-container" id="card-creation-container-${allPlayersArr[i]}">
+            <textarea
+              type="text"
+              class="input-field input-area"
+              placeholder="Enter card details..."
+            ></textarea>
+          </div>
+          <div class="controls-container">
+            <button
+              class="control-button"
+              id="continue-button-card-creation-${i}"
+            >
+              Continue
+            </button>
+          </div>`;
+
+    // Push the new screen to an array of all screens
+    cardCreationScreensArr.push(screenCardCreation);
+
+    // Insert the new screen into the DOM.
+    // If it is the first screen it will be inserted after the team two page
+    // otherwise it will be inserted after the previous card creation screen
+    if (i == 0) {
+      screenTeamTwo.insertAdjacentElement("afterend", screenCardCreation);
+    } else {
+      cardCreationScreensArr[i - 1].insertAdjacentElement(
+        "afterend",
+        screenCardCreation,
+      );
+    }
+
+    // // Create number of cards based on the numCards setting
+    // const cardCreationContainer = screenCardCreation.getElementById(
+    //   "card-creation-container",
+    // );
+    const cardInput = document.getElementsByClassName("input-area")[0];
+
+    // Function is delayed in order for the previous functions to have
+    // time to be rendered to the DOM before their elements are attempted to be accessed.
+    setTimeout(() => {
+      const cardCreationContainer = document.getElementById(
+        `card-creation-container-${allPlayersArr[i]}`,
+      );
+
+      for (let x = 0; x < numCards - 1; x++) {
+        cardCreationContainer.appendChild(cardInput.cloneNode(true));
+      }
+    }, 100);
+
+    // Add event listener to the next player / continue button
+    // The action of the event listener will vary depending on
+    // whethere is is the last screen. If it is the last screen
+    // the the button next will need to be different and it will
+    // need to navigate to the phase one screen
+
+    const continueBtn = document.getElementById(
+      `continue-button-card-creation-${i}`,
+    );
+
+    if (i != allPlayersArr.length - 1) {
+      continueBtn.addEventListener("click", function () {
+        buttonAnimation(this);
+        buttonClickAudio();
+
+        console.log(
+          document.getElementById(`card-creation-container-${allPlayersArr[i]}`)
+            .children,
+        );
+
+        getCardData(
+          document.getElementById(`card-creation-container-${allPlayersArr[i]}`)
+            .children,
+        );
+
+        screenTransition(
+          cardCreationScreensArr[i],
+          cardCreationScreensArr[i + 1],
+        );
+      });
+    } else {
+      continueBtn.addEventListener("click", function () {
+        buttonAnimation(this);
+        buttonClickAudio();
+        screenTransition(
+          cardCreationScreensArr[i],
+          cardCreationScreensArr[i + 1],
+        );
+      });
+    }
+  }
+
+  function getCardData(cardNodeList) {
+    for (let i = 0; i < cardNodeList.length; i++) {
+      gameData.cards.push(cardNodeList[i].value);
+    }
+
+    console.log(gameData.cards);
+  }
+
+  // Return the first screen to be navigated to
+  return cardCreationScreensArr[0];
+}
