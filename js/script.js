@@ -321,16 +321,12 @@ function generateCardCreationScreens() {
         buttonAnimation(this);
         buttonClickAudio();
 
-        console.log(
-          document.getElementById(`card-creation-container-${allPlayersArr[i]}`)
-            .children,
-        );
-
         getCardData(
           document.getElementById(`card-creation-container-${allPlayersArr[i]}`)
             .children,
         );
 
+        // Transition to the next card creation screen
         screenTransition(
           cardCreationScreensArr[i],
           cardCreationScreensArr[i + 1],
@@ -340,10 +336,13 @@ function generateCardCreationScreens() {
       continueBtn.addEventListener("click", function () {
         buttonAnimation(this);
         buttonClickAudio();
-        screenTransition(
-          cardCreationScreensArr[i],
-          cardCreationScreensArr[i + 1],
+
+        getCardData(
+          document.getElementById(`card-creation-container-${allPlayersArr[i]}`)
+            .children,
         );
+
+        screenTransition();
       });
     }
   }
