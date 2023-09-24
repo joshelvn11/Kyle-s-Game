@@ -347,45 +347,61 @@ function generateCardCreationScreens() {
       `continue-button-card-creation-${i}`,
     );
 
+    const cardCollection = document.getElementById(
+      `card-creation-container-${allPlayersArr[i]}`,
+    ).children;
+
     if (i != allPlayersArr.length - 1) {
       continueBtn.addEventListener("click", function () {
         buttonAnimation(this);
         buttonClickAudio();
 
-        getCardData(
-          document.getElementById(`card-creation-container-${allPlayersArr[i]}`)
-            .children,
-        );
+        if (validateCards(cardCollection)) {
+          pushCardData(cardCollection);
+          console.log(gameData);
 
-        // Transition to the next card creation screen
-        screenTransition(
-          cardCreationScreensArr[i],
-          cardCreationScreensArr[i + 1],
-        );
+          // Transition to the next card creation screen
+          screenTransition(
+            cardCreationScreensArr[i],
+            cardCreationScreensArr[i + 1],
+          );
+        }
       });
     } else {
       continueBtn.addEventListener("click", function () {
         buttonAnimation(this);
         buttonClickAudio();
 
-        getCardData(
-          document.getElementById(`card-creation-container-${allPlayersArr[i]}`)
-            .children,
-        );
+        if (validateCards(cardCollection)) {
+          pushCardData(cardCollection);
+          console.log(gameData);
 
-        screenTransition();
+          screenTransition();
+        }
       });
     }
   }
 
-  function getCardData(cardNodeList) {
-    for (let i = 0; i < cardNodeList.length; i++) {
-      gameData.cards.push(cardNodeList[i].value);
-    }
-
-    console.log(gameData.cards);
-  }
-
   // Return the first screen to be navigated to
   return cardCreationScreensArr[0];
+}
+
+function validateCards(cardCollection) {
+  let dataValid = true;
+
+  for (let i = 0; i < cardCollection.length; i++) {
+    if (cardCollection[i].value == "") {
+      dataValid = false;
+      displayMessage("Please ensure all cards have a value");
+      break;
+    }
+  }
+
+  return dataValid;
+}
+
+function pushCardData(cardCollection) {
+  for (let i = 0; i < cardCollection.length; i++) {
+    gameData.cards.push(cardCollection[i].value);
+  }
 }
