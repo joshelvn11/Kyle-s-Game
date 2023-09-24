@@ -78,7 +78,7 @@ const messageModalButton = document.getElementById("message-modal-button");
 
 function displayMessage(message) {
   messageModalText.textContent = message;
-  message.classList.toggle("hidden");
+  messageContainer.classList.toggle("hidden");
 }
 
 messageModalButton.addEventListener("click", function () {
@@ -157,7 +157,6 @@ addPlayerBtnTeamOne.addEventListener("click", function () {
   teamPlayerInput.setAttribute("placeholder", "Player Name");
 
   contentContainerTeamOne.appendChild(teamPlayerInput);
-  console.log(teamOnePlayerElements);
 });
 
 removePlayerBtnTeamOne.addEventListener("click", function () {
@@ -167,29 +166,19 @@ removePlayerBtnTeamOne.addEventListener("click", function () {
   if (teamOnePlayerElements.length > 2) {
     teamOnePlayerElements[teamOnePlayerElements.length - 1].remove();
   }
-
-  console.log(teamOnePlayerElements);
 });
 
 continueBtnTeamOne.addEventListener("click", function () {
   buttonAnimation(this);
   buttonClickAudio();
 
-  /* Create an array of players for Team one
-   * from the text input values and add that array
-   * onto the teams array in the game data
-   */
-  let teamOnePlayers = [];
+  // Validate the input data
+  if (validateTeamPlayers(teamOnePlayerElements)) {
+    pushTeamPlayers(teamOnePlayerElements);
 
-  for (let i = 0; i < teamOnePlayerElements.length; i++) {
-    teamOnePlayers.push(teamOnePlayerElements[i].value);
+    // Change to next screen
+    screenTransition(screenTeamOne, screenTeamTwo);
   }
-
-  gameData.teams.push(teamOnePlayers);
-  console.log(gameData);
-
-  // Change to next screen
-  screenTransition(screenTeamOne, screenTeamTwo);
 });
 
 /* ---------- TEAM TWO SCREEN ---------- */
@@ -224,33 +213,56 @@ removePlayerBtnTeamTwo.addEventListener("click", function () {
   if (teamTwoPlayerElements.length > 2) {
     teamTwoPlayerElements[teamTwoPlayerElements.length - 1].remove();
   }
-
-  console.log(teamTwoPlayerElements);
 });
 
 continueBtnTeamTwo.addEventListener("click", function () {
   buttonAnimation(this);
   buttonClickAudio();
 
+  // Validate the input data
+  if (validateTeamPlayers(teamTwoPlayerElements)) {
+    // Push team players to the global game data object
+    pushTeamPlayers(teamTwoPlayerElements);
+
+    // Generate card creation screens based on players enetered
+    // and retreive the first screen to be navigated to
+    const cardCreationScreen = generateCardCreationScreens();
+
+    // Change to the next screen
+    screenTransition(screenTeamTwo, cardCreationScreen);
+  }
+});
+
+/* ---------- TEAM SCREENS SHARED FUNCTIONS ---------- */
+
+function validateTeamPlayers(playersCollection) {
+  let dataValid = true;
+
+  for (let i = 0; i < teamOnePlayerElements.length; i++) {
+    if (teamOnePlayerElements[i].value == "") {
+      dataValid = false;
+      displayMessage("Please ensure all team members have a name");
+      break;
+    }
+  }
+
+  return dataValid;
+}
+
+function pushTeamPlayers(playersCollection) {
   /* Create an array of players for Team one
    * from the text input values and add that array
    * onto the teams array in the game data
    */
-  let teamTwoPlayers = [];
+  let teamPlayers = [];
 
-  for (let i = 0; i < teamTwoPlayerElements.length; i++) {
-    teamTwoPlayers.push(teamTwoPlayerElements[i].value);
+  for (let i = 0; i < playersCollection.length; i++) {
+    teamPlayers.push(playersCollection[i].value);
   }
 
-  gameData.teams.push(teamTwoPlayers);
-
-  // Generate card creation screens based on players enetered
-  // and retreive the first screen to be navigated to
-  const cardCreationScreen = generateCardCreationScreens();
-
-  // Change to the next screen
-  screenTransition(screenTeamTwo, cardCreationScreen);
-});
+  // Add the array of players to the global game data object
+  gameData.teams.push(teamPlayers);
+}
 
 /* ---------- CARD CREATION SCREENS ---------- */
 
