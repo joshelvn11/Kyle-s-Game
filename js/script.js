@@ -8,6 +8,7 @@ const screenCardCreationTemplate = document.getElementById(
 );
 const roundStartScreen = document.getElementById("start-round-screen");
 const playerStartScreen = document.getElementById("player-start-screen");
+const gameScreen = document.getElementById("game-screen");
 
 /* Containers */
 const containerGame = document.getElementById("game-container");
@@ -22,6 +23,7 @@ const startGameBtn = document.getElementById("button-new-game");
 const settingsBtn = document.getElementById("button-settings");
 const howToBtn = document.getElementById("button-how-to");
 const roundStartBtn = document.getElementById("start-round-button");
+const playerStartBtn = document.getElementById("player-start-button");
 
 /* Audio */
 const soundBtnClick = document.getElementById("sound-button-click");
@@ -29,6 +31,7 @@ const soundBtnClick = document.getElementById("sound-button-click");
 /* Text */
 const roundStartHeaderText = document.getElementById("round-start-header-text");
 const roundStartRules = document.getElementById("round-start-rules");
+const playerStartName = document.getElementById("player-start-name");
 
 /* Global Functions */
 function buttonAnimation(buttonElement) {
@@ -65,15 +68,16 @@ function buttonClickAudio() {
 /* ---------- SETTINGS ---------- */
 
 let numTeams = 2;
-let numCards = 3;
+let numCards = 1;
 
 /* ---------- DATA STRUCTURES ---------- */
 
 let gameData = {
   teams: [],
-  currentPlayers: [],
   teamScores: [],
   currentRound: 1,
+  currentTeam: 0,
+  currentPlayers: [0, 0],
   cards: [],
 };
 
@@ -441,13 +445,25 @@ function nextRound() {
 roundStartBtn.addEventListener("click", function () {
   buttonAnimation(this);
   buttonClickAudio();
+  playerStart();
   screenTransition(roundStartScreen, playerStartScreen);
 });
 
-function nextPlayer() {
-  return nextPlayerScreen;
+/* ---------- PLAYER START SCREEN ---------- */
+
+function playerStart() {
+  playerStartName.textContent = `${
+    gameData.teams[gameData.currentTeam][
+      gameData.currentPlayers[gameData.currentTeam]
+    ]
+  }'s Turn`;
 }
 
-function startGame() {
-  return gameScreen();
-}
+playerStartBtn.addEventListener("click", function () {
+  buttonAnimation(this);
+  buttonClickAudio();
+  startGame();
+  screenTransition(playerStartScreen, gameScreen);
+});
+
+function startGame() {}

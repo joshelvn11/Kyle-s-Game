@@ -149,18 +149,33 @@
 
 			<!-- Player Start Screen -->
 			<section class="screen-container hidden" id="player-start-screen">
-				<div class="header-container"></div>
-				<div class="content-container">
-					<p
-						class="paragraph-text"
-						id="player-start-screen-player-name"
-					>
+				<div class="header-container"><h2></h2></div>
+				<div class="content-container borderless-box">
+					<p class="display-text-large" id="player-start-name">
 						Player's Turn
 					</p>
 				</div>
 				<div class="controls-container">
 					<button class="control-button" id="player-start-button">
 						Ready!
+					</button>
+				</div>
+			</section>
+
+			<!-- Game Screen -->
+			<section class="screen-container hidden" id="game-screen">
+				<div class="header-container">
+					<h2>Game Screen</h2>
+				</div>
+				<div class="content-container">
+					<p class="display-text-large">Player's Turn</p>
+				</div>
+				<div class="controls-container">
+					<button class="control-button" id="skip-card-button">
+						Skip card
+					</button>
+					<button class="control-button" id="right-answer-button">
+						Got it!
 					</button>
 				</div>
 			</section>
