@@ -6,6 +6,8 @@ const screenTeamTwo = document.getElementById("screen-team-two");
 const screenCardCreationTemplate = document.getElementById(
   "screen-card-creation",
 );
+const roundStartScreen = document.getElementById("start-round-screen");
+const playerStartScreen = document.getElementById("player-start-screen");
 
 /* Containers */
 const containerGame = document.getElementById("game-container");
@@ -19,9 +21,14 @@ const enterBtnEnterScrn = document.getElementById("button-fullscreen");
 const startGameBtn = document.getElementById("button-new-game");
 const settingsBtn = document.getElementById("button-settings");
 const howToBtn = document.getElementById("button-how-to");
+const roundStartBtn = document.getElementById("start-round-button");
 
 /* Audio */
 const soundBtnClick = document.getElementById("sound-button-click");
+
+/* Text */
+const roundStartHeaderText = document.getElementById("round-start-header-text");
+const roundStartRules = document.getElementById("round-start-rules");
 
 /* Global Functions */
 function buttonAnimation(buttonElement) {
@@ -66,7 +73,7 @@ let gameData = {
   teams: [],
   currentPlayers: [],
   teamScores: [],
-  currentPhase: 1,
+  currentRound: 1,
   cards: [],
 };
 
@@ -319,7 +326,7 @@ function generateCardCreationScreens() {
       );
     }
 
-    // // Create number of cards based on the numCards setting
+    // Create number of cards based on the numCards setting
     // const cardCreationContainer = screenCardCreation.getElementById(
     //   "card-creation-container",
     // );
@@ -376,7 +383,8 @@ function generateCardCreationScreens() {
           pushCardData(cardCollection);
           console.log(gameData);
 
-          screenTransition();
+          nextRound();
+          screenTransition(cardCreationScreensArr[i], roundStartScreen);
         }
       });
     }
@@ -404,4 +412,42 @@ function pushCardData(cardCollection) {
   for (let i = 0; i < cardCollection.length; i++) {
     gameData.cards.push(cardCollection[i].value);
   }
+}
+
+/* ---------- ROUND START SCREEN ---------- */
+
+function nextRound() {
+  let currentRound;
+  let roundRules;
+
+  if (gameData.currentRound == 1) {
+    currentRound = "One";
+    roundRules =
+      "You can describe the card without using any of the words on the card.";
+  } else if (gameData.currentRound == 2) {
+    currentRound = "Two";
+    roundRules =
+      "You can use only one word to desribe the card. It cannot be a word on the card";
+  } else if (gameData.currentRound == 3) {
+    currentRound = "Three";
+    roundRules =
+      "You need to act out the description of the card. You may not use any words or make any sounds.";
+  }
+
+  roundStartHeaderText.textContent = `Round ${currentRound}`;
+  roundStartRules.textContent = roundRules;
+}
+
+roundStartBtn.addEventListener("click", function () {
+  buttonAnimation(this);
+  buttonClickAudio();
+  screenTransition(roundStartScreen, playerStartScreen);
+});
+
+function nextPlayer() {
+  return nextPlayerScreen;
+}
+
+function startGame() {
+  return gameScreen();
 }
