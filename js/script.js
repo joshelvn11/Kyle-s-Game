@@ -85,6 +85,7 @@ let gameData = {
   currentTeam: 0,
   currentPlayers: [0, 0],
   currentRoundScore: 0,
+  currentRoundLives: 3,
   cards: [],
   activeCards: [],
   activeCardIndex: 0,
@@ -480,15 +481,19 @@ playerStartBtn.addEventListener("click", function () {
 
 /* ---------- GAME SCREEN ---------- */
 
+let timerFunction;
+
 function startGame() {
   // Update / reset global game variables
   gameData.currentRoundScore = 0;
+  gameData.currentRoundLives = 3;
 
+  gameLives.textContent = `❤${gameData.currentRoundLives}`;
   // Update the count down every 1 second
   // code from https://www.w3schools.com/howto/howto_js_countdown.asp
   let gameTime = 60000;
 
-  let timerFunction = setInterval(function () {
+  timerFunction = setInterval(function () {
     // Time calculations for days, hours, minutes and seconds
     let minutes = Math.floor((gameTime % (1000 * 60 * 60)) / (1000 * 60));
     let seconds = Math.floor((gameTime % (1000 * 60)) / 1000);
@@ -510,7 +515,7 @@ function startGame() {
 
     // End the game if the countdown finishes.
     if (gameTime < 0) {
-      clearInterval(timerFunction);
+      //clearInterval(timerFunction);
       endGame();
     }
   }, 1000);
@@ -529,7 +534,8 @@ function nextCard() {
 function nextPlayer() {
   // Check if the current player is the last player in their team array
   if (
-    gameData.currentPlayers[currentTeam] === gameData.teams[currentTeam].length
+    gameData.currentPlayers[gameData.currentTeam] ===
+    gameData.teams[gameData.currentTeam].length
   ) {
     // Switch the current player back to the first player
     gameData.currentPlayers[currentTeam] = 0;
@@ -548,6 +554,12 @@ function nextPlayer() {
 
 function endGame() {
   soundAlarm.play();
+
+  // End the timer
+  clearInterval(timerFunction);
+
+  // Switch the active player to the next player
+  nextPlayer();
 }
 
 rightAnswerBtn.addEventListener("click", function () {
@@ -565,9 +577,7 @@ rightAnswerBtn.addEventListener("click", function () {
     endGame();
   }
 
-  // Switch the active player to the next player
-  nextPlayer();
-
+  // Switch to the next card
   nextCard();
 });
 
@@ -577,6 +587,14 @@ skipCardBtn.addEventListener("click", function () {
 
   // Remove a life from the current player and
   // check if the player has any lives remaining
+  gameData.currentRoundLives -= 1;
+  gameLives.textContent = `❤${gameData.currentRoundLives}`;
 
+  if (gameData.currentRoundLives === 0) {
+    endGame();
+    console.log("Game over, no lives remaining");
+  }
+
+  // Switch to the next card
   nextCard();
 });
