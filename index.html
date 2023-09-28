@@ -165,10 +165,25 @@
 			<!-- Game Screen -->
 			<section class="screen-container hidden" id="game-screen">
 				<div class="header-container">
-					<h2>Game Screen</h2>
+					<div id="game-header-container">
+						<p
+							class="display-text-large align-left"
+							id="game-timer"
+						>
+							1:00
+						</p>
+						<p
+							class="display-text-large align-right"
+							id="game-lives"
+						>
+							❤3
+						</p>
+					</div>
 				</div>
-				<div class="content-container">
-					<p class="display-text-large">Player's Turn</p>
+				<div class="content-container border-box">
+					<p class="paragraph-text" id="card-content">
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					</p>
 				</div>
 				<div class="controls-container">
 					<button class="control-button" id="skip-card-button">
@@ -185,6 +200,9 @@
 				src="assets/media/audio/button-click.mp3"
 				type="audio/mpeg"
 			/>
+		</audio>
+		<audio id="sound-alarm" preload="auto">
+			<source src="assets/media/audio/alarm.mp3" type="audio/mpeg" />
 		</audio>
 
 		<script src="js/script.js"></script>

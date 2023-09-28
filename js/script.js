@@ -27,11 +27,14 @@ const playerStartBtn = document.getElementById("player-start-button");
 
 /* Audio */
 const soundBtnClick = document.getElementById("sound-button-click");
+const soundAlarm = document.getElementById("sound-alarm");
 
 /* Text */
 const roundStartHeaderText = document.getElementById("round-start-header-text");
 const roundStartRules = document.getElementById("round-start-rules");
 const playerStartName = document.getElementById("player-start-name");
+const gameCountdownTimer = document.getElementById("game-timer");
+const gameLives = document.getElementById("game-lives");
 
 /* Global Functions */
 function buttonAnimation(buttonElement) {
@@ -466,4 +469,40 @@ playerStartBtn.addEventListener("click", function () {
   screenTransition(playerStartScreen, gameScreen);
 });
 
-function startGame() {}
+function startGame() {
+  // Update the count down every 1 second
+  // code from https://www.w3schools.com/howto/howto_js_countdown.asp
+  console.log("Game started");
+  let gameTime = 60000;
+
+  let timerFunction = setInterval(function () {
+    // Time calculations for days, hours, minutes and seconds
+    let minutes = Math.floor((gameTime % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((gameTime % (1000 * 60)) / 1000);
+
+    gameTime -= 1000;
+
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+
+    if (seconds < 10) {
+      seconds = "0" + seconds;
+    }
+
+    // Display the current time
+    gameCountdownTimer.textContent = `${minutes}:${seconds}`;
+
+    // If the count down is finished, write some text
+    if (gameTime < 0) {
+      clearInterval(timerFunction);
+      endGame();
+    }
+  }, 1000);
+
+  let lives = 3;
+}
+
+function endGame() {
+  soundAlarm.play();
+}
