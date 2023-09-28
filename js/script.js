@@ -85,7 +85,10 @@ let gameData = {
   currentTeam: 0,
   currentPlayers: [0, 0],
   currentRoundScore: 0,
+<<<<<<< HEAD
   currentRoundLives: 3,
+=======
+>>>>>>> main
   cards: [],
   activeCards: [],
   activeCardIndex: 0,
@@ -481,6 +484,7 @@ playerStartBtn.addEventListener("click", function () {
 
 /* ---------- GAME SCREEN ---------- */
 
+<<<<<<< HEAD
 let timerFunction;
 
 function startGame() {
@@ -489,6 +493,12 @@ function startGame() {
   gameData.currentRoundLives = 3;
 
   gameLives.textContent = `❤${gameData.currentRoundLives}`;
+=======
+function startGame() {
+  // Update / reset global game variables
+  gameData.currentRoundScore = 0;
+
+>>>>>>> main
   // Update the count down every 1 second
   // code from https://www.w3schools.com/howto/howto_js_countdown.asp
   let gameTime = 60000;
@@ -527,6 +537,7 @@ function nextCard() {
   gameData.activeCardIndex = cardIndex;
 
   cardContent.textContent = gameData.activeCards[gameData.activeCardIndex];
+<<<<<<< HEAD
 
   console.log(gameData);
 }
@@ -553,6 +564,15 @@ function nextPlayer() {
 }
 
 function endGame(endRound = false) {
+=======
+
+  console.log(gameData);
+}
+
+function nextPlayer() {}
+
+function endGame() {
+>>>>>>> main
   soundAlarm.play();
 
   // End the timer
@@ -585,7 +605,13 @@ rightAnswerBtn.addEventListener("click", function () {
     endGame();
   }
 
+<<<<<<< HEAD
   // Switch to the next card
+=======
+  // Switch the active player to the next player
+  nextPlayer();
+
+>>>>>>> main
   nextCard();
 });
 
@@ -595,6 +621,7 @@ skipCardBtn.addEventListener("click", function () {
 
   // Remove a life from the current player and
   // check if the player has any lives remaining
+<<<<<<< HEAD
   gameData.currentRoundLives -= 1;
   gameLives.textContent = `❤${gameData.currentRoundLives}`;
 
@@ -604,5 +631,8 @@ skipCardBtn.addEventListener("click", function () {
   }
 
   // Switch to the next card
+=======
+
+>>>>>>> main
   nextCard();
 });
