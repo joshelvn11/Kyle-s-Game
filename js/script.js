@@ -526,7 +526,25 @@ function nextCard() {
   console.log(gameData);
 }
 
-function nextPlayer() {}
+function nextPlayer() {
+  // Check if the current player is the last player in their team array
+  if (
+    gameData.currentPlayers[currentTeam] === gameData.teams[currentTeam].length
+  ) {
+    // Switch the current player back to the first player
+    gameData.currentPlayers[currentTeam] = 0;
+  } else {
+    // Switch the current player to the next player in the team
+    gameData.currentPlayers[currentTeam] += 1;
+  }
+
+  // Switch team
+  if (gameData.currentTeam === 0) {
+    gameData.currentTeam = 1;
+  } else {
+    gameData.currentTeam = 0;
+  }
+}
 
 function endGame() {
   soundAlarm.play();
