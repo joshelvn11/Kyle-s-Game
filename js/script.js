@@ -24,6 +24,8 @@ const settingsBtn = document.getElementById("button-settings");
 const howToBtn = document.getElementById("button-how-to");
 const roundStartBtn = document.getElementById("start-round-button");
 const playerStartBtn = document.getElementById("player-start-button");
+const rightAnswerBtn = document.getElementById("right-answer-button");
+const skipCardBtn = document.getElementById("skip-card-button");
 
 /* Audio */
 const soundBtnClick = document.getElementById("sound-button-click");
@@ -35,6 +37,7 @@ const roundStartRules = document.getElementById("round-start-rules");
 const playerStartName = document.getElementById("player-start-name");
 const gameCountdownTimer = document.getElementById("game-timer");
 const gameLives = document.getElementById("game-lives");
+const cardContent = document.getElementById("card-content");
 
 /* Global Functions */
 function buttonAnimation(buttonElement) {
@@ -82,6 +85,8 @@ let gameData = {
   currentTeam: 0,
   currentPlayers: [0, 0],
   cards: [],
+  activeCards: [],
+  activeCardIndex: 0,
 };
 
 /* ---------- MESSAGE MODAL ---------- */
@@ -443,6 +448,9 @@ function nextRound() {
 
   roundStartHeaderText.textContent = `Round ${currentRound}`;
   roundStartRules.textContent = roundRules;
+
+  // Create an active card set for the round by duplicating the cards array
+  gameData.activeCards = [...gameData.cards];
 }
 
 roundStartBtn.addEventListener("click", function () {
@@ -469,10 +477,11 @@ playerStartBtn.addEventListener("click", function () {
   screenTransition(playerStartScreen, gameScreen);
 });
 
+/* ---------- GAME SCREEN ---------- */
+
 function startGame() {
   // Update the count down every 1 second
   // code from https://www.w3schools.com/howto/howto_js_countdown.asp
-  console.log("Game started");
   let gameTime = 60000;
 
   let timerFunction = setInterval(function () {
@@ -480,8 +489,10 @@ function startGame() {
     let minutes = Math.floor((gameTime % (1000 * 60 * 60)) / (1000 * 60));
     let seconds = Math.floor((gameTime % (1000 * 60)) / 1000);
 
+    // Decrement the time left bt one secon
     gameTime -= 1000;
 
+    // Append a '0' prefix to the minutes and seconds if their values are less than 10
     if (minutes < 10) {
       minutes = "0" + minutes;
     }
@@ -493,16 +504,46 @@ function startGame() {
     // Display the current time
     gameCountdownTimer.textContent = `${minutes}:${seconds}`;
 
-    // If the count down is finished, write some text
+    // End the game if the countdown finishes.
     if (gameTime < 0) {
       clearInterval(timerFunction);
       endGame();
     }
   }, 1000);
+}
 
-  let lives = 3;
+function nextCard() {
+  // Pick a random card of the remaining cards to become the active card
+  let cardIndex = Math.floor(Math.random() * gameData.activeCards.length);
+  gameData.activeCardIndex = cardIndex;
+
+  cardContent.textContent = gameData.activeCards[gameData.activeCardIndex];
+
+  console.log(gameData);
 }
 
 function endGame() {
   soundAlarm.play();
 }
+
+rightAnswerBtn.addEventListener("click", function () {
+  buttonAnimation(this);
+  buttonClickAudio();
+
+  // Give a point to the player and the team
+
+  // Remove the card from the active card array
+  // and check if there are any cards left
+
+  nextCard();
+});
+
+skipCardBtn.addEventListener("click", function () {
+  buttonAnimation(this);
+  buttonClickAudio();
+
+  // Remove a life from the current player and
+  // check if the player has any lives remaining
+
+  nextCard();
+});
