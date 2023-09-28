@@ -80,10 +80,11 @@ let numCards = 1;
 
 let gameData = {
   teams: [],
-  teamScores: [],
+  teamScores: [0, 0],
   currentRound: 1,
   currentTeam: 0,
   currentPlayers: [0, 0],
+  currentRoundScore: 0,
   cards: [],
   activeCards: [],
   activeCardIndex: 0,
@@ -480,6 +481,9 @@ playerStartBtn.addEventListener("click", function () {
 /* ---------- GAME SCREEN ---------- */
 
 function startGame() {
+  // Update / reset global game variables
+  gameData.currentRoundScore = 0;
+
   // Update the count down every 1 second
   // code from https://www.w3schools.com/howto/howto_js_countdown.asp
   let gameTime = 60000;
@@ -522,6 +526,8 @@ function nextCard() {
   console.log(gameData);
 }
 
+function nextPlayer() {}
+
 function endGame() {
   soundAlarm.play();
 }
@@ -531,9 +537,18 @@ rightAnswerBtn.addEventListener("click", function () {
   buttonClickAudio();
 
   // Give a point to the player and the team
+  gameData.currentRoundScore += 1;
 
   // Remove the card from the active card array
   // and check if there are any cards left
+  gameData.activeCards.splice(gameData.activeCardIndex, 1);
+
+  if (gameData.activeCards.length === 0) {
+    endGame();
+  }
+
+  // Switch the active player to the next player
+  nextPlayer();
 
   nextCard();
 });
