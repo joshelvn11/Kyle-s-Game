@@ -535,13 +535,13 @@ function nextPlayer() {
   // Check if the current player is the last player in their team array
   if (
     gameData.currentPlayers[gameData.currentTeam] ===
-    gameData.teams[gameData.currentTeam].length
+    gameData.teams[gameData.currentTeam].length - 1
   ) {
     // Switch the current player back to the first player
-    gameData.currentPlayers[currentTeam] = 0;
+    gameData.currentPlayers[gameData.currentTeam] = 0;
   } else {
     // Switch the current player to the next player in the team
-    gameData.currentPlayers[currentTeam] += 1;
+    gameData.currentPlayers[gameData.currentTeam] += 1;
   }
 
   // Switch team
@@ -552,7 +552,7 @@ function nextPlayer() {
   }
 }
 
-function endGame() {
+function endGame(endRound = false) {
   soundAlarm.play();
 
   // End the timer
@@ -560,6 +560,14 @@ function endGame() {
 
   // Switch the active player to the next player
   nextPlayer();
+
+  // Create the player start screen for the next player
+  playerStart();
+
+  if (endRound) {
+  } else {
+    screenTransition(gameScreen, playerStartScreen);
+  }
 }
 
 rightAnswerBtn.addEventListener("click", function () {
