@@ -9,6 +9,7 @@ const screenCardCreationTemplate = document.getElementById(
 const roundStartScreen = document.getElementById("start-round-screen");
 const playerStartScreen = document.getElementById("player-start-screen");
 const gameScreen = document.getElementById("game-screen");
+const roundEndScreen = document.getElementById("end-round-screen");
 
 /* Containers */
 const containerGame = document.getElementById("game-container");
@@ -26,6 +27,7 @@ const roundStartBtn = document.getElementById("start-round-button");
 const playerStartBtn = document.getElementById("player-start-button");
 const rightAnswerBtn = document.getElementById("right-answer-button");
 const skipCardBtn = document.getElementById("skip-card-button");
+const nextRoundBtn = document.getElementById("next-round-button");
 
 /* Audio */
 const soundBtnClick = document.getElementById("sound-button-click");
@@ -38,6 +40,7 @@ const playerStartName = document.getElementById("player-start-name");
 const gameCountdownTimer = document.getElementById("game-timer");
 const gameLives = document.getElementById("game-lives");
 const cardContent = document.getElementById("card-content");
+const roundWinnerTeam = document.getElementById("round-winner-team");
 
 /* Global Functions */
 function buttonAnimation(buttonElement) {
@@ -85,10 +88,7 @@ let gameData = {
   currentTeam: 0,
   currentPlayers: [0, 0],
   currentRoundScore: 0,
-<<<<<<< HEAD
   currentRoundLives: 3,
-=======
->>>>>>> main
   cards: [],
   activeCards: [],
   activeCardIndex: 0,
@@ -484,7 +484,6 @@ playerStartBtn.addEventListener("click", function () {
 
 /* ---------- GAME SCREEN ---------- */
 
-<<<<<<< HEAD
 let timerFunction;
 
 function startGame() {
@@ -493,12 +492,6 @@ function startGame() {
   gameData.currentRoundLives = 3;
 
   gameLives.textContent = `❤${gameData.currentRoundLives}`;
-=======
-function startGame() {
-  // Update / reset global game variables
-  gameData.currentRoundScore = 0;
-
->>>>>>> main
   // Update the count down every 1 second
   // code from https://www.w3schools.com/howto/howto_js_countdown.asp
   let gameTime = 60000;
@@ -525,8 +518,7 @@ function startGame() {
 
     // End the game if the countdown finishes.
     if (gameTime < 0) {
-      //clearInterval(timerFunction);
-      endGame();
+      endTurn();
     }
   }, 1000);
 }
@@ -536,8 +528,8 @@ function nextCard() {
   let cardIndex = Math.floor(Math.random() * gameData.activeCards.length);
   gameData.activeCardIndex = cardIndex;
 
+  // Show the card content
   cardContent.textContent = gameData.activeCards[gameData.activeCardIndex];
-<<<<<<< HEAD
 
   console.log(gameData);
 }
@@ -563,20 +555,14 @@ function nextPlayer() {
   }
 }
 
-function endGame(endRound = false) {
-=======
-
-  console.log(gameData);
-}
-
-function nextPlayer() {}
-
-function endGame() {
->>>>>>> main
+function endTurn(endOfRound = false) {
   soundAlarm.play();
 
   // End the timer
   clearInterval(timerFunction);
+
+  // Add the current round score to the current team's score
+  gameData.teamScores[gameData.currentTeam] += gameData.currentRoundScore;
 
   // Switch the active player to the next player
   nextPlayer();
@@ -584,9 +570,25 @@ function endGame() {
   // Create the player start screen for the next player
   playerStart();
 
-  if (endRound) {
+  if (endOfRound) {
+    endRound();
   } else {
+    // Change to the player start (next player) screen
     screenTransition(gameScreen, playerStartScreen);
+  }
+}
+
+function endRound() {
+  // Check if the last round has just been played
+  if (gameData.currentRound === 3) {
+    endGame();
+  } else {
+    // Find the winning team for the round
+    const winner = gameData.teamScores[0] > gameData.teamScores[1] ? 1 : 2;
+    roundWinnerTeam.textContent = `Team ${winner}`;
+
+    // Change to the round end screen
+    screenTransition(gameScreen, roundEndScreen);
   }
 }
 
@@ -601,17 +603,12 @@ rightAnswerBtn.addEventListener("click", function () {
   // and check if there are any cards left
   gameData.activeCards.splice(gameData.activeCardIndex, 1);
 
+  // If there are no cards left end the game and the round
   if (gameData.activeCards.length === 0) {
-    endGame();
+    endTurn(true);
   }
 
-<<<<<<< HEAD
   // Switch to the next card
-=======
-  // Switch the active player to the next player
-  nextPlayer();
-
->>>>>>> main
   nextCard();
 });
 
@@ -621,18 +618,14 @@ skipCardBtn.addEventListener("click", function () {
 
   // Remove a life from the current player and
   // check if the player has any lives remaining
-<<<<<<< HEAD
   gameData.currentRoundLives -= 1;
   gameLives.textContent = `❤${gameData.currentRoundLives}`;
 
   if (gameData.currentRoundLives === 0) {
-    endGame();
+    endTurn();
     console.log("Game over, no lives remaining");
   }
 
   // Switch to the next card
-=======
-
->>>>>>> main
   nextCard();
 });
