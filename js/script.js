@@ -581,11 +581,15 @@ function endTurn(endOfRound = false) {
 function endRound() {
   // Check if the last round has just been played
   if (gameData.currentRound === 3) {
+    nextRoundBtn.value = "View Results";
     endGame();
   } else {
     // Find the winning team for the round
     const winner = gameData.teamScores[0] > gameData.teamScores[1] ? 1 : 2;
     roundWinnerTeam.textContent = `Team ${winner}`;
+
+    // Increment the round in the game data
+    gameData.currentRound += 1;
 
     // Change to the round end screen
     screenTransition(gameScreen, roundEndScreen);
@@ -628,4 +632,15 @@ skipCardBtn.addEventListener("click", function () {
 
   // Switch to the next card
   nextCard();
+});
+
+nextRoundBtn.addEventListener("click", function () {
+  buttonAnimation(this);
+  buttonClickAudio();
+
+  // Start the next round
+  nextRound();
+
+  // Change the round start screen
+  screenTransition(roundEndScreen, roundStartScreen);
 });
