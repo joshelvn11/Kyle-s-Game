@@ -490,8 +490,11 @@ function startGame() {
   // Update / reset global game variables
   gameData.currentRoundScore = 0;
   gameData.currentRoundLives = 3;
-
   gameLives.textContent = `❤${gameData.currentRoundLives}`;
+
+  // Iniate the first card
+  nextCard();
+
   // Update the count down every 1 second
   // code from https://www.w3schools.com/howto/howto_js_countdown.asp
   let gameTime = 60000;
