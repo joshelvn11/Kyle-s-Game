@@ -87,8 +87,9 @@ let gameData = {
   currentRound: 1,
   currentTeam: 0,
   currentPlayers: [0, 0],
-  currentRoundScore: 0,
-  currentRoundLives: 3,
+  currentTurnScore: 0,
+  currentTurnLives: 3,
+  currentRoundTeamScores: [0, 0],
   cards: [],
   activeCards: [],
   activeCardIndex: 0,
@@ -456,6 +457,9 @@ function nextRound() {
 
   // Create an active card set for the round by duplicating the cards array
   gameData.activeCards = [...gameData.cards];
+
+  // Reset the round scores
+  gameData.currentRoundTeamScores = [0, 0];
 }
 
 roundStartBtn.addEventListener("click", function () {
@@ -488,9 +492,9 @@ let timerFunction;
 
 function startGame() {
   // Update / reset global game variables
-  gameData.currentRoundScore = 0;
-  gameData.currentRoundLives = 3;
-  gameLives.textContent = `❤${gameData.currentRoundLives}`;
+  gameData.currentTurnScore = 0;
+  gameData.currentTurnLives = 3;
+  gameLives.textContent = `❤${gameData.currentTurnLives}`;
 
   // Iniate the first card
   nextCard();
@@ -565,7 +569,9 @@ function endTurn(endOfRound = false) {
   clearInterval(timerFunction);
 
   // Add the current round score to the current team's score
-  gameData.teamScores[gameData.currentTeam] += gameData.currentRoundScore;
+  gameData.teamScores[gameData.currentTeam] += gameData.currentTurnScore;
+  gameData.currentRoundTeamScores[gameData.currentTeam] +=
+    gameData.currentTurnScore;
 
   // Switch the active player to the next player
   nextPlayer();
@@ -582,21 +588,24 @@ function endTurn(endOfRound = false) {
 }
 
 function endRound() {
+  // Find the winning team for the round
+  const winner =
+    gameData.currentRoundTeamScores[0] > gameData.currentRoundTeamScores[1]
+      ? 1
+      : 2;
+  roundWinnerTeam.textContent = `Team ${winner}`;
+
   // Check if the last round has just been played
   if (gameData.currentRound === 3) {
-    nextRoundBtn.value = "View Results";
-    endGame();
+    nextRoundBtn.textContent = "View Results";
+    //endGame();
   } else {
-    // Find the winning team for the round
-    const winner = gameData.teamScores[0] > gameData.teamScores[1] ? 1 : 2;
-    roundWinnerTeam.textContent = `Team ${winner}`;
-
     // Increment the round in the game data
     gameData.currentRound += 1;
-
-    // Change to the round end screen
-    screenTransition(gameScreen, roundEndScreen);
   }
+
+  // Change to the round end screen
+  screenTransition(gameScreen, roundEndScreen);
 }
 
 rightAnswerBtn.addEventListener("click", function () {
@@ -604,7 +613,7 @@ rightAnswerBtn.addEventListener("click", function () {
   buttonClickAudio();
 
   // Give a point to the player and the team
-  gameData.currentRoundScore += 1;
+  gameData.currentTurnScore += 1;
 
   // Remove the card from the active card array
   // and check if there are any cards left
@@ -625,10 +634,10 @@ skipCardBtn.addEventListener("click", function () {
 
   // Remove a life from the current player and
   // check if the player has any lives remaining
-  gameData.currentRoundLives -= 1;
-  gameLives.textContent = `❤${gameData.currentRoundLives}`;
+  gameData.currentTurnLives -= 1;
+  gameLives.textContent = `❤${gameData.currentTurnLives}`;
 
-  if (gameData.currentRoundLives === 0) {
+  if (gameData.currentTurnLives === 0) {
     endTurn();
     console.log("Game over, no lives remaining");
   }
@@ -641,9 +650,12 @@ nextRoundBtn.addEventListener("click", function () {
   buttonAnimation(this);
   buttonClickAudio();
 
-  // Start the next round
-  nextRound();
+  if (gameData.currentRound === 3) {
+  } else {
+    // Start the next round
+    nextRound();
 
-  // Change the round start screen
-  screenTransition(roundEndScreen, roundStartScreen);
+    // Change the round start screen
+    screenTransition(roundEndScreen, roundStartScreen);
+  }
 });
