@@ -10,6 +10,7 @@ const roundStartScreen = document.getElementById("start-round-screen");
 const playerStartScreen = document.getElementById("player-start-screen");
 const gameScreen = document.getElementById("game-screen");
 const roundEndScreen = document.getElementById("end-round-screen");
+const gameEndScreen = document.getElementById("end-game-screen");
 
 /* Containers */
 const containerGame = document.getElementById("game-container");
@@ -28,6 +29,7 @@ const playerStartBtn = document.getElementById("player-start-button");
 const rightAnswerBtn = document.getElementById("right-answer-button");
 const skipCardBtn = document.getElementById("skip-card-button");
 const nextRoundBtn = document.getElementById("next-round-button");
+const homeBtn = document.getElementById("home-button");
 
 /* Audio */
 const soundBtnClick = document.getElementById("sound-button-click");
@@ -41,6 +43,7 @@ const gameCountdownTimer = document.getElementById("game-timer");
 const gameLives = document.getElementById("game-lives");
 const cardContent = document.getElementById("card-content");
 const roundWinnerTeam = document.getElementById("round-winner-team");
+const gameWinnerTeam = document.getElementById("game-winner-team");
 
 /* Global Functions */
 function buttonAnimation(buttonElement) {
@@ -93,6 +96,16 @@ let gameData = {
   cards: [],
   activeCards: [],
   activeCardIndex: 0,
+  resetData: function () {
+    this.teams = [];
+    this.teamScores = [0, 0];
+    this.currentRound = 1;
+    this.currentTeam = 0;
+    this.currentPlayers = [0, 0];
+    this.cards = [];
+    console.log("Data reset");
+    console.log(gameData);
+  },
 };
 
 /* ---------- MESSAGE MODAL ---------- */
@@ -147,6 +160,7 @@ function adjustContentContainer() {
 startGameBtn.addEventListener("click", function () {
   buttonAnimation(this);
   buttonClickAudio();
+  gameData.resetData();
   screenTransition(screenStart, screenTeamOne);
 });
 
@@ -598,7 +612,8 @@ function endRound() {
   // Check if the last round has just been played
   if (gameData.currentRound === 3) {
     nextRoundBtn.textContent = "View Results";
-    //endGame();
+    gameData.currentRound += 1;
+    endGame();
   } else {
     // Increment the round in the game data
     gameData.currentRound += 1;
@@ -606,6 +621,12 @@ function endRound() {
 
   // Change to the round end screen
   screenTransition(gameScreen, roundEndScreen);
+}
+
+function endGame() {
+  // Find the winning team for the game
+  const winner = gameData.teamScores[0] > gameData.teamScores[1] ? 1 : 2;
+  gameWinnerTeam.textContent = `Team ${winner}!`;
 }
 
 rightAnswerBtn.addEventListener("click", function () {
@@ -650,12 +671,23 @@ nextRoundBtn.addEventListener("click", function () {
   buttonAnimation(this);
   buttonClickAudio();
 
-  if (gameData.currentRound === 3) {
+  // Check if the last round has just been played
+  if (gameData.currentRound === 4) {
+    screenTransition(roundEndScreen, gameEndScreen);
   } else {
     // Start the next round
     nextRound();
 
-    // Change the round start screen
+    // Change to the round start screen
     screenTransition(roundEndScreen, roundStartScreen);
   }
+});
+
+homeBtn.addEventListener("click", function () {
+  buttonAnimation(this);
+  buttonClickAudio();
+
+  gameData.resetData();
+
+  screenTransition(gameEndScreen, screenStart);
 });
