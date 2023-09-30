@@ -1,3 +1,5 @@
+const root = document.documentElement;
+
 /* Screens */
 const screenEntry = document.getElementById("screen-entry");
 const screenStart = document.getElementById("screen-start");
@@ -11,6 +13,7 @@ const playerStartScreen = document.getElementById("player-start-screen");
 const gameScreen = document.getElementById("game-screen");
 const roundEndScreen = document.getElementById("end-round-screen");
 const gameEndScreen = document.getElementById("end-game-screen");
+const settingsScreen = document.getElementById("settings-screen");
 
 /* Containers */
 const containerGame = document.getElementById("game-container");
@@ -30,6 +33,10 @@ const rightAnswerBtn = document.getElementById("right-answer-button");
 const skipCardBtn = document.getElementById("skip-card-button");
 const nextRoundBtn = document.getElementById("next-round-button");
 const homeBtn = document.getElementById("home-button");
+const saveSettingsBtn = document.getElementById("save-settings-button");
+
+/* Setting Controls */
+const darkModeToggle = document.getElementById("dark-mode-setting-control");
 
 /* Audio */
 const soundBtnClick = document.getElementById("sound-button-click");
@@ -167,6 +174,7 @@ startGameBtn.addEventListener("click", function () {
 settingsBtn.addEventListener("click", function () {
   buttonAnimation(this);
   buttonClickAudio();
+  screenTransition(screenStart, settingsScreen);
 });
 
 howToBtn.addEventListener("click", function () {
@@ -500,7 +508,7 @@ playerStartBtn.addEventListener("click", function () {
   screenTransition(playerStartScreen, gameScreen);
 });
 
-/* ---------- GAME SCREEN ---------- */
+/* ---------- GAME SCREENS ---------- */
 
 let timerFunction;
 
@@ -687,7 +695,36 @@ homeBtn.addEventListener("click", function () {
   buttonAnimation(this);
   buttonClickAudio();
 
-  gameData.resetData();
-
   screenTransition(gameEndScreen, screenStart);
 });
+
+/* ---------- SETTINGS SCREEN ---------- */
+
+saveSettingsBtn.addEventListener("click", function () {
+  buttonAnimation(this);
+  buttonClickAudio();
+  screenTransition(settingsScreen, screenStart);
+});
+
+darkModeToggle.addEventListener("click", function () {
+  if (darkModeToggle.checked) {
+    toggleTheme("dark");
+  } else if (!darkModeToggle.checked) {
+    toggleTheme("light");
+  }
+});
+
+function toggleTheme(theme) {
+  switch (theme) {
+    case "dark":
+      root.style.setProperty("--primary-color", "#232323");
+      root.style.setProperty("--secondary-color", "#D9D9D9");
+      root.style.setProperty("--tertiary-color", "#2D2D2D");
+      break;
+    case "light":
+      root.style.setProperty("--primary-color", "#4d2db7");
+      root.style.setProperty("--secondary-color", "#ec53b0");
+      root.style.setProperty("--tertiary-color", "#3a18a9");
+      break;
+  }
+}
