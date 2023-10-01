@@ -37,6 +37,9 @@ const saveSettingsBtn = document.getElementById("save-settings-button");
 
 /* Setting Controls */
 const darkModeToggle = document.getElementById("dark-mode-setting-control");
+const accesibleFontsToggle = document.getElementById(
+  "accessible-fonts-control",
+);
 
 /* Audio */
 const soundBtnClick = document.getElementById("sound-button-click");
@@ -728,3 +731,11 @@ function toggleTheme(theme) {
       break;
   }
 }
+
+accesibleFontsToggle.addEventListener("click", function () {
+  if (accesibleFontsToggle.checked) {
+    root.style.setProperty("--display-font", "Poppins");
+  } else if (!accesibleFontsToggle.checked) {
+    root.style.setProperty("--display-font", "Dinfest");
+  }
+});
