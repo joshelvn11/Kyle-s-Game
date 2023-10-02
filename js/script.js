@@ -40,6 +40,7 @@ const darkModeToggle = document.getElementById("dark-mode-setting-control");
 const accesibleFontsToggle = document.getElementById(
   "accessible-fonts-control",
 );
+const cardsPerPlayerInput = document.getElementById("cards-per-player-control");
 
 /* Audio */
 const soundBtnClick = document.getElementById("sound-button-click");
@@ -90,7 +91,7 @@ function buttonClickAudio() {
 /* ---------- SETTINGS ---------- */
 
 let numTeams = 2;
-let numCards = 1;
+let numCards = 3;
 
 loadSettings();
 
@@ -762,7 +763,13 @@ accesibleFontsToggle.addEventListener("click", function () {
   }
 });
 
+cardsPerPlayerInput.addEventListener("click", function () {
+  numCards = cardsPerPlayerInput.value;
+  setCookie("cardsPerPlayer", numCards);
+});
+
 function loadSettings() {
+  // Load theme
   const themeCookie = getCookie("theme");
 
   if (themeCookie !== null) {
@@ -771,14 +778,20 @@ function loadSettings() {
     toggleTheme("light");
   }
 
+  // Load fonts
   const fontsCookie = getCookie("accessibleFonts");
-  console.log(`Fonts cookie ${fontsCookie}`);
 
   if (fontsCookie !== null) {
     toggleFonts(fontsCookie);
   } else {
     toggleFonts("false");
   }
+
+  // Load number of cards per player
+  const cardsPerPlayerCookie = getCookie("cardsPerPlayer");
+
+  numCards = cardsPerPlayerCookie;
+  cardsPerPlayerInput.value = numCards;
 }
 
 function setCookie(name, value) {
