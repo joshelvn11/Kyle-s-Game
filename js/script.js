@@ -763,9 +763,17 @@ accesibleFontsToggle.addEventListener("click", function () {
   }
 });
 
-cardsPerPlayerInput.addEventListener("click", function () {
-  numCards = cardsPerPlayerInput.value;
-  setCookie("cardsPerPlayer", numCards);
+cardsPerPlayerInput.addEventListener("input", function () {
+  if (
+    typeof cardsPerPlayerInput.value != "number" ||
+    cardsPerPlayerInput.value < 0 ||
+    cardsPerPlayerInput.value > 10
+  ) {
+    numCards = cardsPerPlayerInput.value;
+    setCookie("cardsPerPlayer", numCards);
+  } else {
+    displayMessage("Please enter a number between 1 and 10");
+  }
 });
 
 function loadSettings() {
@@ -790,7 +798,7 @@ function loadSettings() {
   // Load number of cards per player
   const cardsPerPlayerCookie = getCookie("cardsPerPlayer");
 
-  numCards = cardsPerPlayerCookie;
+  numCards = cardsPerPlayerCookie || 3;
   cardsPerPlayerInput.value = numCards;
 }
 
