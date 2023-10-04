@@ -626,6 +626,13 @@ function endRound() {
       : 2;
   roundWinnerTeam.textContent = `Team ${winner}`;
 
+  // Equal score condition
+  if (
+    gameData.currentRoundTeamScores[0] == gameData.currentRoundTeamScores[1]
+  ) {
+    roundWinnerTeam.textContent = `It's a tie!`;
+  }
+
   // Check if the last round has just been played
   if (gameData.currentRound === 3) {
     nextRoundBtn.textContent = "View Results";
@@ -644,6 +651,11 @@ function endGame() {
   // Find the winning team for the game
   const winner = gameData.teamScores[0] > gameData.teamScores[1] ? 1 : 2;
   gameWinnerTeam.textContent = `Team ${winner}!`;
+}
+
+// Equal score condition
+if (gameData.teamScores[0] == gameData.teamScores[1]) {
+  gameWinnerTeam.textContent = `It's a tie!`;
 }
 
 rightAnswerBtn.addEventListener("click", function () {
