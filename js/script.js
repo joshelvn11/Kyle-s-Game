@@ -294,15 +294,45 @@ continueBtnTeamTwo.addEventListener("click", function () {
 function validateTeamPlayers(playersCollection) {
   let dataValid = true;
 
-  for (let i = 0; i < teamOnePlayerElements.length; i++) {
-    if (teamOnePlayerElements[i].value == "") {
+  // Check that the player name is not empty
+  for (let i = 0; i < playersCollection.length; i++) {
+    if (playersCollection[i].value == "") {
       dataValid = false;
       displayMessage("Please ensure all team members have a name");
-      break;
+      return false;
+    }
+
+    // Checks the player name is 5 characters or less
+    if (playersCollection[i].value.length > 6) {
+      dataValid = false;
+      displayMessage("Player names may not be longer than 6 characters");
+      return false;
+    }
+
+    // Check for duplicate names
+    for (let x = 0; x < playersCollection.length; x++) {
+      // Don't check the player against themselves
+      if (x != i) {
+        // Check against the current team names
+        if (playersCollection[i].value == playersCollection[x].value) {
+          displayMessage("Please ensure all players have a unique name");
+          return false;
+        }
+      }
+    }
+
+    // Check against members from previous teams
+    for (let y = 0; y < gameData.teams.length; y++) {
+      for (let z = 0; z < gameData.teams[y].length; z++) {
+        if (playersCollection[i].value == gameData.teams[y][z]) {
+          displayMessage("Please ensure all players have a unique name");
+          return false;
+        }
+      }
     }
   }
 
-  return dataValid;
+  return true;
 }
 
 function pushTeamPlayers(playersCollection) {
