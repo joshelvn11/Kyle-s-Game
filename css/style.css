@@ -337,6 +337,13 @@ body {
     transform: translateX(30px);
 }
 
+/* ----- How To Play ----- */
+
+#how-to-play-container {
+    padding: 12px 12px;
+    box-sizing: border-box;
+}
+
 /* ----- Animations ----- */
 
 .button-click {

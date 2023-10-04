@@ -14,6 +14,7 @@ const gameScreen = document.getElementById("game-screen");
 const roundEndScreen = document.getElementById("end-round-screen");
 const gameEndScreen = document.getElementById("end-game-screen");
 const settingsScreen = document.getElementById("settings-screen");
+const howToPlayScreen = document.getElementById("how-to-play-screen");
 
 /* Containers */
 const containerGame = document.getElementById("game-container");
@@ -26,7 +27,7 @@ const containersControls =
 const enterBtnEnterScrn = document.getElementById("button-fullscreen");
 const startGameBtn = document.getElementById("button-new-game");
 const settingsBtn = document.getElementById("button-settings");
-const howToBtn = document.getElementById("button-how-to");
+const howToPlayBtn = document.getElementById("button-how-to");
 const roundStartBtn = document.getElementById("start-round-button");
 const playerStartBtn = document.getElementById("player-start-button");
 const rightAnswerBtn = document.getElementById("right-answer-button");
@@ -34,6 +35,7 @@ const skipCardBtn = document.getElementById("skip-card-button");
 const nextRoundBtn = document.getElementById("next-round-button");
 const homeBtn = document.getElementById("home-button");
 const saveSettingsBtn = document.getElementById("save-settings-button");
+const howToHomeBtn = document.getElementById("how-to-home-button");
 
 /* Setting Controls */
 const darkModeToggle = document.getElementById("dark-mode-setting-control");
@@ -183,9 +185,10 @@ settingsBtn.addEventListener("click", function () {
   screenTransition(screenStart, settingsScreen);
 });
 
-howToBtn.addEventListener("click", function () {
+howToPlayBtn.addEventListener("click", function () {
   buttonAnimation(this);
   buttonClickAudio();
+  screenTransition(screenStart, howToPlayScreen);
 });
 
 /* ---------- TEAM ONE SCREEN ---------- */
@@ -823,3 +826,9 @@ function getCookie(name) {
 
   return null; // Return null if the cookie is not found
 }
+
+howToHomeBtn.addEventListener("click", function () {
+  buttonAnimation(this);
+  buttonClickAudio();
+  screenTransition(howToPlayScreen, screenStart);
+});
