@@ -118,8 +118,6 @@ let gameData = {
     this.currentTeam = 0;
     this.currentPlayers = [0, 0];
     this.cards = [];
-    console.log("Data reset");
-    console.log(gameData);
   },
 };
 
@@ -259,7 +257,6 @@ addPlayerBtnTeamTwo.addEventListener("click", function () {
   teamPlayerInput.setAttribute("placeholder", "Player Name");
 
   contentContainerTeamTwo.appendChild(teamPlayerInput);
-  console.log(teamTwoPlayerElements);
 });
 
 removePlayerBtnTeamTwo.addEventListener("click", function () {
@@ -358,7 +355,6 @@ function generateCardCreationScreens() {
 
   // Create an array of all players
   const allPlayersArr = [...gameData.teams[0], ...gameData.teams[1]];
-  console.log(allPlayersArr);
 
   // Loop through the array of all players and generate a card
   // creaion screen for each one.
@@ -444,7 +440,6 @@ function generateCardCreationScreens() {
 
         if (validateCards(cardCollection)) {
           pushCardData(cardCollection);
-          console.log(gameData);
 
           // Transition to the next card creation screen
           screenTransition(
@@ -460,7 +455,6 @@ function generateCardCreationScreens() {
 
         if (validateCards(cardCollection)) {
           pushCardData(cardCollection);
-          console.log(gameData);
 
           nextRound();
           screenTransition(cardCreationScreensArr[i], roundStartScreen);
@@ -598,8 +592,6 @@ function nextCard() {
 
   // Show the card content
   cardContent.textContent = gameData.activeCards[gameData.activeCardIndex];
-
-  console.log(gameData);
 }
 
 function nextPlayer() {
@@ -719,7 +711,6 @@ skipCardBtn.addEventListener("click", function () {
 
   if (gameData.currentTurnLives === 0) {
     endTurn();
-    console.log("Game over, no lives remaining");
   }
 
   // Switch to the next card
