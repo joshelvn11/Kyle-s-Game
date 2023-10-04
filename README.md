@@ -81,3 +81,25 @@ Because the display fonts used may be inaccessible to a degree for visually impa
 To persist settings data on the device cookies are used. When a user changes settings these will be saved as cookies to a device and every time the game is load the settings will first be attempted to be loaded from cookies and applied to the game.
 
 This eliminates the need for users to apply the preferred settings every time the page is loaded.
+
+## Testing
+
+### Markup Validation
+
+### CSS Validation
+
+The site passed through the Jigsaw CSS validator with no issues.
+
+![Jigsaw Validator](https://i.imgur.com/2GNNbM5.png "Jigsaw Validator")
+
+### JS Validation
+
+When passed through JSHint, if all messages about esversion are ignored, the site produced 3 identical messages of 'Functions declared within loops referencing an outer scoped variable may lead to confusing semantics.'.
+
+I could not find a reasonable solution to avoid these so have left as is for the time being.
+
+### Lighthouse Testing
+
+The site was passed through Lighthouse with full scores in every area on both mobile and desktop.
+
+![Lighthouse Testing](https://i.imgur.com/Tb7Jdve.png "Lighthouse Testing")
