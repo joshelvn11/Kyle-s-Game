@@ -5,9 +5,6 @@ const screenEntry = document.getElementById("screen-entry");
 const screenStart = document.getElementById("screen-start");
 const screenTeamOne = document.getElementById("screen-team-one");
 const screenTeamTwo = document.getElementById("screen-team-two");
-const screenCardCreationTemplate = document.getElementById(
-  "screen-card-creation",
-);
 const roundStartScreen = document.getElementById("start-round-screen");
 const playerStartScreen = document.getElementById("player-start-screen");
 const gameScreen = document.getElementById("game-screen");
@@ -92,7 +89,6 @@ function buttonClickAudio() {
 
 /* ---------- SETTINGS ---------- */
 
-let numTeams = 2;
 let numCards = 3;
 
 loadSettings();
