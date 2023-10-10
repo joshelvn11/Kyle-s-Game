@@ -1,5 +1,8 @@
 # Kyle's Game - A Fun Party Game
 
+
+![Devices Mockup](https://i.imgur.com/cBGFoeq.png "Devices Mockup")
+
 ## Overview
 
 This site allows people to play the party classic, Kyle's Game, on your phone with friends!
@@ -46,7 +49,11 @@ If any rule for the round is broken the card must be skipped and the player will
 
 #### Ending The Game
 
-At the end of the third round the each team's score over the course of the three rounds are added together to decide an overall winner.
+A~At the end of the third round the each team's score over the course of the three rounds are added together to decide an overall winner.
+
+## Design
+
+The design and prototype was first created in Figma, the original design filed used can be found here
 
 ## Features
 
@@ -72,15 +79,68 @@ It is implemented by changing global css variables.
 
 In the settings users may adjust the number of cards they would like for each player. In the card creation screens the number of cards the user has specified will be automatically generated.
 
-### Accesible Fonts
+### Accessible Fonts
 
 Because the display fonts used may be inaccessible to a degree for visually impaired users a setting is available which will change the display font to a more accessible font.
 
 ### Cookies
 
-To persist settings data on the device cookies are used. When a user changes settings these will be saved as cookies to a device and every time the game is load the settings will first be attempted to be loaded from cookies and applied to the game.
+To persist settings data on the device cookies are used. When a user changes settings these will be saved as cookies to 
+a device and every time the game is load the settings will first be attempted to be loaded from cookies and applied to the game.
 
 This eliminates the need for users to apply the preferred settings every time the page is loaded.
+
+## Sections / Screens
+
+Each section is displayed as a separate screen with only being visible in the viewport at a time. The screens are
+navigated between using navigation buttons on each screen. Adopting this approach allows the sections to be rendered on 
+the fly off-screen and prevent page loads resulting in a smoother user experience.
+
+### Start Screen
+
+### Add Players Screens
+
+The Add Players screens allows the user(s) to assign names to the players on each team and add or remove players from 
+team. Player names are validated to be unique and not more than six characters.
+
+### Add Cards Screens
+
+An add cards screen is dynamically generated for each player created on the previous screens. Card boxes are generated 
+based on the number of cards setting on the settings screen (the default being three). The cards are validated to ensure 
+they have all been filled out with at least some content. Once all cards are filled out and the player continues the 
+cards are saved to the game pool.
+
+### Round Start Screen
+
+This screen displays the rules for the current round.
+
+### Player Start Screen
+
+This screen indicate which player's turn it is.
+
+### Game Screen
+
+This is the primary screen where the game actually takes places. It has a countdown timer and indicates the current 
+amount of lives the player has for the turn.
+
+In the center the current card in play is displayed.
+
+At the bottom are the action buttons where the player can either choose that they correctly guessed the current card or 
+skipped it. Both will cause a new random card to be displayed in the central area. When the timer ends, the player runs 
+out of lives or all remaining cards in the pool are guessed the turn or round will end and automatically move to the 
+end of turn screen.
+
+### End of Turn Screen
+
+This screen is shown at the end of every turn and shows how many cards were guessed correctly by the player that turn.
+
+### End of Round Screen
+
+This screen is shown at the end of every round and shows the winning team of that round.
+
+### End of Game Screen
+
+This screen is shown at the end of the game and shows the overall winner of the game.
 
 ## Testing
 
@@ -104,9 +164,13 @@ The site was passed through Lighthouse with full scores in every area on both mo
 
 ![Lighthouse Testing](https://i.imgur.com/Tb7Jdve.png "Lighthouse Testing")
 
+### Usability Testing
+
+For actually human usability testing the website was given to a small group of test users of different ages and technical backgrounds to ensure the website was intuitive and easy to use for all audiences. The feedback was positive across all test users confirming the site was intuitive and usable.
+
 ## Deployment
 
-This repo is deployed to GitHub pages..
+This repo is deployed to GitHub pages.
 
 The repo is configured to automatically to deploy GitHub pages using GitHub actions every time commit is pushed to the main branch.
 
