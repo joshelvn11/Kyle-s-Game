@@ -4,7 +4,7 @@
 
 This site allows people to play the party classic, Kyle's Game, on your phone with friends!
 
-This game is primarliy designed to be used on mobile devices however works on any device on a browser. It utilises a fullscreen mode on mobile phones to emulate a native app and also runs as a PWA (Progressive Web App) on Android Devices.
+This game is primarily designed to be used on mobile devices however works on any device on a browser. It utilises a fullscreen mode on mobile phones to emulate a native app.
 
 It is a game for multiple players using the same device where the device is passed around to the active player.
 
@@ -30,11 +30,11 @@ Each turn one player from the team will be the one required to describe the card
 
 Each turn a team has one minute to guess as many cards as possible. If a card is correctly guessed the card is removed from the game for the rest of the round, once all cards have been correctly guessed the round is over, the amount of correctly guessed cards is added to each team's total score and the game moves to the next round where all the cards are added back to the game and used to play again.
 
-The player describing may skip a card if they choose to, however as a consequence they will lose a life. Each player has two lives per round. If a player breaks the description rules for the round they will also be required to skip their current card and as a reult lose a life. Skipped cards are not removed from play and will stay in the round until correctly guessed.
+The player describing may skip a card if they choose to, however as a consequence they will lose a life. Each player has two lives per round. If a player breaks the description rules for the round they will also be required to skip their current card and as a result lose a life. Skipped cards are not removed from play and will stay in the round until correctly guessed.
 
 #### The Rounds
 
-The game is played over three rounds, each round has it's own rules on how the player describing the cards may describe them to the other player(s) on their team. The rules for each round get progressively more difficult however because the same cards are used for each round the players should also become more familiar with the cards in the pool over every round.
+The game is played over three rounds, each round has its own rules on how the player describing the cards may describe them to the other player(s) on their team. The rules for each round get progressively more difficult however because the same cards are used for each round the players should also become more familiar with the cards in the pool over every round.
 
 Round One: The player can describe the card however they like without using any words on the card. They may not use 'rhymes with' or 'sounds like' descriptions for words.
 
@@ -64,7 +64,7 @@ Every turn a player is given 3 lives. A life is deducted every time a card is sk
 
 ### Dark Mode
 
-In the settings users may switch to dark mode which for some may be preffered for an aesthetics point of view and for users with visual impairment will improve accessibility.
+In the settings users may switch to dark mode which for some may be preferred for an aesthetics point of view and for users with visual impairment will improve accessibility.
 
 It is implemented by changing global css variables.
 
@@ -103,3 +103,18 @@ I could not find a reasonable solution to avoid these so have left as is for the
 The site was passed through Lighthouse with full scores in every area on both mobile and desktop.
 
 ![Lighthouse Testing](https://i.imgur.com/Tb7Jdve.png "Lighthouse Testing")
+
+## Deployment
+
+This repo is deployed to GitHub pages..
+
+The repo is configured to automatically to deploy GitHub pages using GitHub actions every time commit is pushed to the main branch.
+
+The steps to set up this deployment process are as follows:
+
+Navigate to the setting tabs of the GitHub repository.
+Navigate to the Pages section using the navigation panel on the left.
+Under the Source dropdown make sure 'Deploy from a branch' is selected.
+Under 'Branch' select the branch you wish to deploy from, in this case it's 'main'.
+Click 'Save' and now every time a commit is pushed to this branch on this repo it will be automatically deploy to GitHub pages.
+GitHub Pages Website - https://github.com/joshelvn11/Kyles-Game
