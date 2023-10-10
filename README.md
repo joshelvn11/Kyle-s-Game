@@ -168,6 +168,15 @@ The site was passed through Lighthouse with full scores in every area on both mo
 
 For actually human usability testing the website was given to a small group of test users of different ages and technical backgrounds to ensure the website was intuitive and easy to use for all audiences. The feedback was positive across all test users confirming the site was intuitive and usable.
 
+## Browser Testing
+
+The browser was tested for full compatability across Chrome, Safari and Firefox with no known issues.
+
+## Known Bugs
+
+There is currently only one known bug where the scroll bar track is always shown, even if there is no content to scroll,
+on the center content section on Firefox on desktop. Other browsers and Firefox on mobile do not have this issue.
+
 ## Deployment
 
 This repo is deployed to GitHub pages.
