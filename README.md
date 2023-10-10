@@ -69,6 +69,10 @@ Each round has a countdown timer which will automatically end the turn and preve
 
 Every turn a player is given 3 lives. A life is deducted every time a card is skipped and the turn will automatically end when a user's lives reach 0.
 
+### Message Modal
+
+The game has a message modal function which can be used at any point to display a custom alert to the user.
+
 ### Dark Mode
 
 In the settings users may switch to dark mode which for some may be preferred for an aesthetics point of view and for users with visual impairment will improve accessibility.
