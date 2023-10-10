@@ -49,7 +49,7 @@ If any rule for the round is broken the card must be skipped and the player will
 
 #### Ending The Game
 
-A~At the end of the third round the each team's score over the course of the three rounds are added together to decide an overall winner.
+At the end of the third round each team's score over the course of the three rounds are added together to decide an overall winner.
 
 ## Design
 
@@ -149,6 +149,11 @@ This screen is shown at the end of the game and shows the overall winner of the 
 ## Testing
 
 ### Markup Validation
+
+The site passed through the W3 markup validator with no issues
+
+![Markup Validator](https://i.imgur.com/BEg1RTw.png" Markup Validator")
+
 
 ### CSS Validation
 
