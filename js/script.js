@@ -123,6 +123,7 @@ const messageContainer = document.getElementById("message-container");
 const messageModalText = document.getElementById("message-modal-text");
 const messageModalButton = document.getElementById("message-modal-button");
 
+// Function for accessing message modal
 function displayMessage(message) {
   messageModalText.textContent = message;
   messageContainer.classList.toggle("hidden");
@@ -417,8 +418,8 @@ function generateCardCreationScreens() {
 
     // Add event listener to the next player / continue button
     // The action of the event listener will vary depending on
-    // whethere is is the last screen. If it is the last screen
-    // the the button next will need to be different and it will
+    // whether it is the last screen. If it is the last screen
+    // then the button next will need to be different and it will
     // need to navigate to the phase one screen
 
     const continueBtn = document.getElementById(
@@ -463,6 +464,7 @@ function generateCardCreationScreens() {
   return cardCreationScreensArr[0];
 }
 
+// Function for validating user input card data
 function validateCards(cardCollection) {
   let dataValid = true;
 
@@ -477,6 +479,7 @@ function validateCards(cardCollection) {
   return dataValid;
 }
 
+// Pushes the card data to the global game data object
 function pushCardData(cardCollection) {
   for (let i = 0; i < cardCollection.length; i++) {
     gameData.cards.push(cardCollection[i].value);
@@ -547,7 +550,7 @@ function startGame() {
   gameData.currentTurnLives = 3;
   gameLives.textContent = `❤${gameData.currentTurnLives}`;
 
-  // Iniate the first card
+  // Initiate the first card
   nextCard();
 
   // Update the count-down every 1 second
