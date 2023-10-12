@@ -2,7 +2,7 @@ const root = document.documentElement;
 
 /* Screens */
 const screenEntry = document.getElementById("screen-entry");
-const screenStart = document.getElementById("screen-start");
+const masterStartScreen = document.getElementById("screen-start");
 const screenTeamOne = document.getElementById("screen-team-one");
 const screenTeamTwo = document.getElementById("screen-team-two");
 const roundStartScreen = document.getElementById("start-round-screen");
@@ -147,7 +147,7 @@ enterBtnEnterScrn.addEventListener(
       elem.requestFullscreen();
     }
     buttonClickAudio();
-    screenTransition(screenEntry, screenStart);
+    screenTransition(screenEntry, masterStartScreen);
   },
   false,
 );
@@ -170,19 +170,19 @@ startGameBtn.addEventListener("click", function () {
   buttonAnimation(this);
   buttonClickAudio();
   gameData.resetData();
-  screenTransition(screenStart, screenTeamOne);
+  screenTransition(masterStartScreen, screenTeamOne);
 });
 
 settingsBtn.addEventListener("click", function () {
   buttonAnimation(this);
   buttonClickAudio();
-  screenTransition(screenStart, settingsScreen);
+  screenTransition(masterStartScreen, settingsScreen);
 });
 
 howToPlayBtn.addEventListener("click", function () {
   buttonAnimation(this);
   buttonClickAudio();
-  screenTransition(screenStart, howToPlayScreen);
+  screenTransition(masterStartScreen, howToPlayScreen);
 });
 
 /* ---------- TEAM ONE SCREEN ---------- */
@@ -273,8 +273,8 @@ continueBtnTeamTwo.addEventListener("click", function () {
     // Push team players to the global game data object
     pushTeamPlayers(teamTwoPlayerElements);
 
-    // Generate card creation screens based on players enetered
-    // and retreive the first screen to be navigated to
+    // Generate card creation screens based on players entered
+    // and retrieve the first screen to be navigated to
     const cardCreationScreen = generateCardCreationScreens();
 
     // Change to the next screen
@@ -305,9 +305,9 @@ function validateTeamPlayers(playersCollection) {
     // Check for duplicate names
     for (let x = 0; x < playersCollection.length; x++) {
       // Don't check the player against themselves
-      if (x != i) {
+      if (x !== i) {
         // Check against the current team names
-        if (playersCollection[i].value == playersCollection[x].value) {
+        if (playersCollection[i].value === playersCollection[x].value) {
           displayMessage("Please ensure all players have a unique name");
           return false;
         }
@@ -317,7 +317,7 @@ function validateTeamPlayers(playersCollection) {
     // Check against members from previous teams
     for (let y = 0; y < gameData.teams.length; y++) {
       for (let z = 0; z < gameData.teams[y].length; z++) {
-        if (playersCollection[i].value == gameData.teams[y][z]) {
+        if (playersCollection[i].value === gameData.teams[y][z]) {
           displayMessage("Please ensure all players have a unique name");
           return false;
         }
@@ -388,7 +388,7 @@ function generateCardCreationScreens() {
     // Insert the new screen into the DOM.
     // If it is the first screen it will be inserted after the team two page
     // otherwise it will be inserted after the previous card creation screen
-    if (i == 0) {
+    if (i === 0) {
       screenTeamTwo.insertAdjacentElement("afterend", screenCardCreation);
     } else {
       cardCreationScreensArr[i - 1].insertAdjacentElement(
@@ -429,7 +429,7 @@ function generateCardCreationScreens() {
       `card-creation-container-${allPlayersArr[i]}`,
     ).children;
 
-    if (i != allPlayersArr.length - 1) {
+    if (i !== allPlayersArr.length - 1) {
       continueBtn.addEventListener("click", function () {
         buttonAnimation(this);
         buttonClickAudio();
@@ -467,7 +467,7 @@ function validateCards(cardCollection) {
   let dataValid = true;
 
   for (let i = 0; i < cardCollection.length; i++) {
-    if (cardCollection[i].value == "") {
+    if (cardCollection[i].value === "") {
       dataValid = false;
       displayMessage("Please ensure all cards have a value");
       break;
@@ -489,15 +489,15 @@ function nextRound() {
   let currentRound;
   let roundRules;
 
-  if (gameData.currentRound == 1) {
+  if (gameData.currentRound === 1) {
     currentRound = "One";
     roundRules =
       "You can describe the card without using any of the words on the card.";
-  } else if (gameData.currentRound == 2) {
+  } else if (gameData.currentRound === 2) {
     currentRound = "Two";
     roundRules =
       "You can use only one word to desribe the card. It cannot be a word on the card";
-  } else if (gameData.currentRound == 3) {
+  } else if (gameData.currentRound === 3) {
     currentRound = "Three";
     roundRules =
       "You need to act out the description of the card. You may not use any words or make any sounds.";
@@ -550,7 +550,7 @@ function startGame() {
   // Iniate the first card
   nextCard();
 
-  // Update the count down every 1 second
+  // Update the count-down every 1 second
   // code from https://www.w3schools.com/howto/howto_js_countdown.asp
   let gameTime = 60000;
 
@@ -733,7 +733,7 @@ homeBtn.addEventListener("click", function () {
   buttonAnimation(this);
   buttonClickAudio();
 
-  screenTransition(gameEndScreen, screenStart);
+  screenTransition(gameEndScreen, masterStartScreen);
 });
 
 /* ---------- SETTINGS SCREEN ---------- */
@@ -741,7 +741,7 @@ homeBtn.addEventListener("click", function () {
 saveSettingsBtn.addEventListener("click", function () {
   buttonAnimation(this);
   buttonClickAudio();
-  screenTransition(settingsScreen, screenStart);
+  screenTransition(settingsScreen, masterStartScreen);
 });
 
 darkModeToggle.addEventListener("click", function () {
@@ -859,5 +859,5 @@ function getCookie(name) {
 howToHomeBtn.addEventListener("click", function () {
   buttonAnimation(this);
   buttonClickAudio();
-  screenTransition(howToPlayScreen, screenStart);
+  screenTransition(howToPlayScreen, masterStartScreen);
 });

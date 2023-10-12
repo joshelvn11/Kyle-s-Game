@@ -32,7 +32,7 @@
 
 body {
     opacity: 1;
-    /* Background parttern created using https://www.magicpattern.design/tools/css-backgrounds */
+    /* Background pattern created using https://www.magicpattern.design/tools/css-backgrounds */
     background-image: radial-gradient(
             var(--tertiary-color) 1.65px,
             transparent 1.65px
@@ -83,6 +83,43 @@ body {
     color: var(--secondary-color);
     font-family: var(--paragraph-font);
     text-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+}
+
+/* ----- Scroll Bar Styling ----- */
+/* https://www.digitalocean.com/community/tutorials/css-scrollbars */
+
+div::-webkit-scrollbar {
+    width: 6px; /* width of the entire scrollbar */
+}
+
+div::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+}
+
+div::-webkit-scrollbar-thumb {
+    background-color: var(--secondary-color);
+    border-radius: 30px;
+}
+
+/* Firefox  styling */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary-color) rgba(0, 0, 0, 0);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+    width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 20px;
+    border: none;
 }
 
 /* ----- Primary Layout Containers -----
@@ -311,7 +348,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--bg-colorcolor);
+    background-color: var(--bg-color);
     transition: 0.3s;
 }
 
