@@ -53,7 +53,7 @@ At the end of the third round each team's score over the course of the three rou
 
 ## Design
 
-The design and prototype was first created in Figma, the original design filed used can be found here
+The design and prototype was first created in Figma, the original design filed used can be found [here.](https://imgur.com/TxwT4uG)
 
 ## Features
 
@@ -102,10 +102,16 @@ the fly off-screen and prevent page loads resulting in a smoother user experienc
 
 ### Start Screen
 
+This is the initial starting screen where players can start a new game, change settings or read the game rules.
+
+![Start Screen](https://i.imgur.com/VPKRtVm.png "Start Screen")
+
 ### Add Players Screens
 
 The Add Players screens allows the user(s) to assign names to the players on each team and add or remove players from 
 team. Player names are validated to be unique and not more than six characters.
+
+![Add Player](https://i.imgur.com/pu8ojJw.png "Add Players")
 
 ### Add Cards Screens
 
@@ -114,13 +120,19 @@ based on the number of cards setting on the settings screen (the default being t
 they have all been filled out with at least some content. Once all cards are filled out and the player continues the 
 cards are saved to the game pool.
 
+![Add Cards](https://i.imgur.com/gUZIud3.png "Add Cards")
+
 ### Round Start Screen
 
 This screen displays the rules for the current round.
 
+![Round Start](https://i.imgur.com/9bQCqNl.png "Round Start")
+
 ### Player Start Screen
 
 This screen indicate which player's turn it is.
+
+![Player Start](https://i.imgur.com/0CyBxgZ.png "Player Start")
 
 ### Game Screen
 
@@ -134,17 +146,19 @@ skipped it. Both will cause a new random card to be displayed in the central are
 out of lives or all remaining cards in the pool are guessed the turn or round will end and automatically move to the 
 end of turn screen.
 
-### End of Turn Screen
-
-This screen is shown at the end of every turn and shows how many cards were guessed correctly by the player that turn.
+![Game Screen](https://i.imgur.com/V3YhpTf.png "Game Screen")
 
 ### End of Round Screen
 
 This screen is shown at the end of every round and shows the winning team of that round.
 
+![End of Round](https://i.imgur.com/d30JC5d.png "End of Round")
+
 ### End of Game Screen
 
 This screen is shown at the end of the game and shows the overall winner of the game.
+
+![End of Game](https://i.imgur.com/AhiCSIg.png "End of Game")
 
 ## Testing
 
@@ -200,3 +214,8 @@ Under the Source dropdown make sure 'Deploy from a branch' is selected.
 Under 'Branch' select the branch you wish to deploy from, in this case it's 'main'.
 Click 'Save' and now every time a commit is pushed to this branch on this repo it will be automatically deploy to GitHub pages.
 GitHub Pages Website - https://github.com/joshelvn11/Kyles-Game
+
+
+## Credits
+
+Button click sound - Mixkit https://mixkit.co
