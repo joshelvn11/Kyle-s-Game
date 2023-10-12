@@ -166,7 +166,7 @@ This screen is shown at the end of the game and shows the overall winner of the 
 
 The site passed through the W3 markup validator with no issues
 
-![Markup Validator](https://i.imgur.com/BEg1RTw.png" Markup Validator")
+![Markup Validator](https://i.imgur.com/BEg1RTw.png "Markup Validator")
 
 
 ### CSS Validation
